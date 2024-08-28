@@ -37,4 +37,143 @@ Existe un modo llamado npm run </ script> (el / está para q no colapse la sinta
     "preview": "vite preview"
     },
     ...
+    
+
+Lo primero que hacemos para estudiar react es ver el componente de react, el primero está ubicado en la ya mencionada App.jsx
+
+Ignorando todo el boilerplate que hay, borramos todo y solo dejamos esto, es un punto de partida (es como decir hola mundog)
+
+    import * as React from 'react';
+        function App() {
+            return (
+                <div>   
+            <h1>Hola mundog</h1>
+        </div>
+    );
     }
+
+El primer componente de react que vemos es el **App** component, una función de JavaScript. Es vital que los componentes empiecen con mayúscula, si no el programa le da amsiedams, es decir, se usa **PascalCase**.
+
+Cabe notar que el codigo retorna HTML, perturbador.
+
+¿Sabías que se puede añadir código entre la declaración y return?
+
+    import * as React from 'react';
+    function App() {
+        // you can do something in between
+        return (
+            <div>
+                <h1>Hello React</h1>    
+            </div>
+    );
+    }
+
+Por ejemplo, si añadimos una función, la variable se redifinirá cada vez que se corre la función, es decir, para el rendering inicial y el re-rendering. Así que añadimos al código simplemente la declaración de función afuera. 
+
+    import * as React from 'react';
+
+        const title = 'React'
+
+        function App() {
+            return (
+                <div>   
+            <h1>Hola mundog</h1>
+        </div>
+    );
+    }
+
+<h3> IMPORTANTE: recordar q esta wea tiene que usar ; al final de cada cuestión </h3>
+
+React se llama JSX porque es JavaScriptXML, que combina ambos... quieres ver como?? es muy guay!!
+
+
+    import * as React from 'react';
+
+        const title = 'React'
+
+        function App() {
+            return (
+                <div>   
+            <h1>Hola {title} mundog</h1>
+        </div>
+    );
+    }
+
+Wow!! ahora se renderiza todo!!
+
+![Alt text](image.png)
+
+(me acabo de dar cuenta q se pueden meter imágenes,,, gracias github y gracias mkd)
+
+React usa el React Fast Reflesh, que detecta cambios y actualiza todo de una asi como fium re fast.
+
+Ahora quiere que le metamos un inputs,, ni idea de como. Según, se hace así:
+
+    import * as React from 'react';
+
+        const title = 'React'
+
+        function App() {
+            return (
+                <div>   
+            <h1>Hola {title} mundog</h1>
+            <label htmlFor="search">Search: </label>
+            <input id="search" type="text" />
+        </div>
+    );
+    }
+
+JSX cambia algunas cosas, por lo que ahora se usa el atributo htmlFor = { ALGO } que cambia el for de HTML (creo q es para q no colapse con un for loop en js).
+
+Así, en react class pasa a ser className o onclick pasa a ser onClick. *Nótese que todos los atributos son en camelcase*
+
+Se pueden añadir diccionarios a React, eso es pulento, mira:
+
+import * as React from 'react';
+
+
+    function App() {
+
+    const welcome = {
+        greeting: 'Hola',
+        title: 'React',
+    };
+
+    return (
+        <div>
+        <h1>
+            {welcome.greeting}
+            {welcome.title}
+        </h1>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" />
+        </div>
+    );
+    }
+    export default App;
+
+![Alt aatext](image-1.png)
+
+Todo en curlybraces dentro de React es javascript parece. Por ejemplo, podemos hacerlo más engorroso añadiendo una función que te devuelve tu mismo parámetro.
+
+![Alt text](image-2.png)
+
+Top 10 momentos esquizofrénicos de chile (La funcion le das un texto y te lo devuelve!! wow!! )
+
+    function App() {
+
+    function getTitle(title){
+        return title;
+    }
+
+    return (
+        <div>
+        <h1>
+            Hola {getTitle('Mundog')}
+        </h1>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" />
+        </div>
+    );
+    }
+    export default App;
