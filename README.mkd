@@ -1,0 +1,40 @@
+<h1> Curso de React porque Claudio Álvarez no es buen profesor en sentidos prácticos </h1>
+
+<h2> Siguiendo por completo el libro guía </h2>
+
+
+<hr>
+**Estudio 1** 
+**Página de inicio: 0**
+
+Similar a ruby on rails, se crea el proyecto ocn un template online. Se usa **Vite** que solo necesita NPM y Node.js, ninguna dependencia extraña como en ruby on rails. Luego se puede combinar creo. El archivo creado tiene la siguiente distribución:
+
+**Package.json**: Archivo que te muestra la lista de dependencias y configuariones necesarias.
+
+**Package-lock.json"**: No tocar. Es más que nada para que la máquina sepa que hacer con las dependencias.
+
+**Node_modules**: No tocar. Contiene los modulos de Node creados para satisfacer el proyecto.
+
+**Vite.config.js**: Archivo para configurar Vite.
+
+**public/**: Acá se guardan los assets estáticos del proyecto. 
+
+**index.html**: Es el archivo HTML que se muestra en el browser cuando se inicia el proyecto en el local host. No tiene casi nada de contenido, *solo un tag que lleva al código de react*
+
+**DE MOMENTO** lo necesario está en la carpeta src/, con el foco principal en src/App.jsx que es la que se usará para implementar los componentes de React. También en algún momento revisaremos los estilos con App.css y index.csss
+
+**Estudio 2** 
+**Página de inicio: 17**
+
+Existe un modo llamado npm run </ script> (el / está para q no colapse la sintaxis xd) que sirve para correr comandos específicos. Estos comandos vienen dados en package.json y se pueden actualizar como uno quiera, es un json no rocket science
+
+    {
+    ...
+    },
+    "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+    },
+    ...
+    }
