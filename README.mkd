@@ -23,6 +23,9 @@ Similar a ruby on rails, se crea el proyecto ocn un template online. Se usa **Vi
 
 **DE MOMENTO** lo necesario está en la carpeta src/, con el foco principal en src/App.jsx que es la que se usará para implementar los componentes de React. También en algún momento revisaremos los estilos con App.css y index.csss
 
+
+<hr>
+
 **Estudio 2** 
 **Página de inicio: 17**
 
@@ -177,3 +180,113 @@ Top 10 momentos esquizofrénicos de chile (La funcion le das un texto y te lo de
     );
     }
     export default App;
+
+
+**FIN DEL ESTUDIO 2: Hasta página 33**
+
+**INICIO DEL ESTUDIO 3: Página 33**
+
+<h3> Listas en react </h3>
+
+Lo primero que estudiamos es la función .map(), que recorre cada índice de una lista y aplica en cada uno una función, dejando en el lugar del item el resultado de cada función. Esto es en JS.
+
+**EN JSX POR OTRO LADO** se usa map para iterar cada item a JSX. 
+
+
+    const list = [
+        {
+            title: 'React',
+            url: 'https://reactjs.org/',
+            author: 'Jordan Walke',
+            num_comments: 3,
+            points: 4,
+            objectID: 0,
+        },
+        {
+            title: 'Redux',
+            url: 'https://redux.js.org/',
+            author: 'Dan Abramov, Andrew Clark',
+            num_comments: 2,
+            points: 5,
+            objectID: 1,
+        },
+    ];
+    function App() { ... } // PLACEHOLDER
+
+
+
+Acompañado obviamente del respectivo app.jsx
+
+    function App() {
+
+    function getTitle(title){
+        return title;
+    }
+
+    return (
+        <div>
+        <h1> My Hacker Stories </h1>
+
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" />
+
+        <hr />
+        <ul>
+            {list.map(function (item) {
+            return <li>{item.title}</li>;
+            })}
+        </ul>
+        </div>
+    );
+    }
+    export default App;
+
+
+Acá lo que ocurre es lo siguiente:
+
+    {list.map(function (item) {return <li>{item.title}} </li>;})}
+
+**Functión** Placeholder del def y nombre
+**Item** Nombre que se dará al valor por el que se itera
+**Return** es el típico return que luego sigue con la declaración del valor que devuelve.
+
+Finalmente y así se devuelve una función de JSX. EN este caso la función es solo item (el valor por el que se itera) y su título.
+
+En el código el (LI) representa un ítem de lista dentro de una (UL) (Lista desordenada).
+
+    return <li key={item.objectID}>{item.title}</li>;
+
+**Key** es una declaración para que React use item.objectID como clave única (key) para cada elemento de la lista. Esta clave ayuda a React a identificar de manera única cada (li) dentro del ul y, por lo tanto, a manejar de manera eficiente las operaciones de renderización y actualización del DOM.
+
+En caso de que una lista no cuete con algo para identificar, algún valor o lo que sea, se puede usar el index, esto es solo un último recurso.
+
+    {list.map(function (item, index) {
+        return (
+            <li key={index}>
+            {item.title}
+        </li>
+        );
+    })}
+<hr>
+
+Anyways, la página de momento se ve así
+
+![Alt text](image-3.png)
+
+
+añadiendo más cosas al return se obtiene:
+
+    <li key={item.objectID}>
+    <span>
+    <a href={item.url}>{item.title}</a>
+    </span>
+    <span>{item.author}</span>
+    <span>{item.num_comments}</span>
+    <span>{item.points}</span>
+    </li>
+
+Nótese como en la UTL se usa (a) o ANCHOR TAG de HTML, rodeando el título. Esto significa que tiene un hipervínculo.
+
+![Alt text](image-4.png)
+
+Los hipervinculos llevan de momento a las urls dadas en el diccionario. *Nótese que los href deben llevar https para el routing correcto a páginas FUERA del proyecto.*
