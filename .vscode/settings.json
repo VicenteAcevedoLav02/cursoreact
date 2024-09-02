@@ -1,0 +1,15 @@
+{
+    "markdown-preview-enhanced.markdownFileExtensions": [
+
+        ".md",
+        ".markdown",
+        ".mdown",
+        ".mkdn",
+        ".mkd",
+        ".rmd",
+        ".qmd"
+    ],
+    "markdown-preview-enhanced.previewColorScheme": "systemColorScheme",
+    "markdown-preview-enhanced.previewTheme": "atom-dark.css",
+    "markdown-preview-enhanced.revealjsTheme": "moon.css"
+}

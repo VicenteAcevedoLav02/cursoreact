@@ -290,3 +290,288 @@ Nótese como en la UTL se usa (a) o ANCHOR TAG de HTML, rodeando el título. Est
 ![Alt text](image-4.png)
 
 Los hipervinculos llevan de momento a las urls dadas en el diccionario. *Nótese que los href deben llevar https para el routing correcto a páginas FUERA del proyecto.*
+
+**Fin del estudio 3** Página 38
+<hr>
+
+**Inicio estudio 4** Página 38
+
+Además del componente App, podemos añadir otros componentes. Ahora transformamos la lista en otro componente llamado "List". Recordar que los componentes son de REACT!! Podemos añadir luego LIST a la función App, como en c++ llamando a funciones dentro de main
+
+    import * as React from 'react';
+
+    const list = [
+    {
+        title: 'React',
+        url: 'https://puppies.com/',
+        author: 'Jordan Walke',
+        num_comments: 3,
+        points: 4,
+        objectID: 0,
+    },
+    {
+        title: 'Reduxs',
+        url: 'https://redux.js.org/',
+        author: 'Dan Abramov, Andrew Clark',
+        num_comments: 2,
+        points: 5,
+        objectID: 1,
+    },
+    ];
+
+    function App() {
+    function getTitle(title) {
+        return title;
+    }
+
+    return (
+        <div>
+        <h1> My Hacker Stories </h1>
+
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" />
+        <hr />
+        <List list={list} />
+        </div>
+    );
+    }
+
+    function List({ list }) {
+    return (
+        <div>
+        <ul>
+            {list.map(function (item) {
+            return (
+                <li key={item.objectID}>
+                <span>
+                    <a href={item.url}>{item.title}</a>
+                </span>
+                <span>{item.author}</span>
+                <span>{item.num_comments}</span>
+                <span>{item.points}</span>
+                </li>
+            );
+            })}
+        </ul>
+        </div>
+    );
+    }
+
+    export default App;
+    
+
+Nótese cierta discrepancia. El código que se proporciona originalmente en el libro guía es el siguiente:
+
+    <List />
+
+Pero según ChatGPT, para acceder a variables, se las debo pasar en la declaración inical:
+
+    <List list={list} />
+
+Así que, para que renderice bien, lo asumo!!
+
+Para comprobar, voy a intentar componificar search (q no depende de ninunga otra función)
+
+Funciona perfectamente.
+
+![Alt text](image-5.png)
+
+Nótese que en la declaración de Search no se incluyen parámetros, en al de List sí.
+
+    function Search() //NO RECIBE NADA
+    function List({ list }) //RECIBE ALGO Y SE LLAMA LIST, COMO EN PYTHON!!
+
+Así, se dice que
+
+<h4> APP es el componente padre y lo que incluye APP son componentes hijos y lo que incluyen esos componentes (elementos por los que se itera, por ejemplo) son componentes hijos del componente hijo. Si el componente no tiene componentes, es componente hoja!!!
+
+<h1> MENTI NO ERA NAECESARIO PONER LIST NO SE POR QUË S EM HABIA BUGUEADO ANTES!??!?!</h1>
+
+**Fin del estudio 4** Página 45
+
+<hr>
+<h1> React DOM </h1>
+
+En el archivo src/main.jsx tenemos la declaración de los componentes, incluyendo la inicialización de App y su instancia dentro del archivo.
+
+    import { StrictMode } from 'react'
+    import { createRoot } from 'react-dom/client'
+    import App from './App.jsx'
+    import './index.css'
+
+    createRoot(document.getElementById('root')).render(
+    <StrictMode>
+        <App />
+    </StrictMode>,
+    )
+
+Se ve de esa forma.
+
+Así cachando, editando al peo, si añado "hola" igual se renderiza, por lo que no entiendo para qué está app.jsx xd
+
+
+    createRoot(document.getElementById('root')).render(
+    <StrictMode>
+        hola
+        <App />
+    </StrictMode>,
+    )
+
+Se importan React y React DOM *(según el libro guía, porque acá no me aparece nada)*
+
+React es lo de siempre y React DOM es lo que se usa para conectar React con el HTML (o eso entendí con mi super inglés C3)
+
+Todo esto se ve en el html que se usa para la página
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite + React</title>
+    </head>
+    <body>
+        <div id="root"></div> // ACA SE INSERTA REACT
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
+    </html>
+
+*En realidad no seguí mucho insistiendo en esto porque mi source code es muy diferente y me estrecé y tengo sueño*
+
+<h1> React Component Declaration </h1>
+
+Estas son puras convenciones xd. **Es más que nada recordar usar arrow functions cuando el return es lo unico que hace la función y nada más!!**
+
+<h1> Handler function </h1>
+
+Handler functions son las funciones que handlean las interacciónes entre kongponentes!!!!!
+
+para implementar correctamente, debemos hacer cosas antes que el return, por eso usamos arrow function!! recién ahora lo entendí, entonces transformamos la función a eso para aprovechar el espacio que nos deja antes del return
+
+
+    const Search = () => {
+
+        #AHORA HAY EsPACIO ACÁ YUPIU!!!!!
+
+    return (
+        <div>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" />
+        </div>
+    );
+    }
+
+En ese espacio trabajaremos,, sigma male core,,
+
+Tenemos que añadir así el Event Handler Functions.
+
+      const handleChange = (event) => {
+    // synthetic event
+    console.log(event);
+    // value of target (here: input HTML element)
+    console.log(event.target.value);
+    };
+    
+Esto lo explica el libro y voy a intentar entenderlo!!
+
+También se añade que en el listener, al listenear, active la función.
+>
+
+Entonces, al escribir, ocurre esto:
+
+    
+      <input id="search" type="text" onChange={handleChange} /
+
+![Alt text](image-6.png)
+
+Los eventos se tratan como un objeto con distintas propiedades.
+
+De momento es solo esto, **una función que se activa cuando se cambia algo**. ¿Qué va ahí? No sé!! Gracias libro!! Me dió mucho sueño
+
+**Fin del estudio 5**, página 54
+
+<hr>
+**Inicio del estudio 6**, página 54
+<h1> React Props </h1>
+
+No tiene mucho sentido usar funciones globales para React, por la modularidad de todos, es mejor pasar funciones de componente en componente. Esto son los **Proppers** (Referencia a poppers... mmm q rico jalar poppers....)
+
+Para ejemplificar movemos la lista a la variable app
+
+
+    const App = () => {
+        
+    const list = [
+        {
+        title: 'React',
+        url: 'https://reactjs.org/',
+        author: 'Jordan Walke',
+        num_comments: 3,
+        points: 4,
+        objectID: 0,
+        },
+        {
+        title: 'Redux',
+        url: 'https://redux.js.org/',
+        author: 'Dan Abramov, Andrew Clark',
+        num_comments: 2,
+        points: 5,
+        objectID: 1,
+        },
+    ];
+
+    return (
+        <div>
+        ....
+
+
+Ahora tenemos que conectar todo. Lo primero es List, hacer que reciba la lista desde Apps:
+
+
+    return (
+        <div>
+        <h1>My Hacker Stories</h1>
+
+        <Search />
+
+        <hr />
+
+        <List list={stories} /> // LA iniciaclización de List incluye stories
+        </div>
+    );
+    }
+
+        
+    const List = (props) => (
+    <ul> // LIST Recibe Props
+        {props.list.map((item) => (
+        <Item key={item.objectID} item={item} />
+        ))}
+    </ul>
+    );
+
+Se añade algo llamado Item que no ccmprendo para qué existe!! AYUDA!!
+
+    const Item = (props) => (
+    <li>
+        <span>
+        <a href={props.item.url}>{props.item.title}</a>
+        </span>
+        <span>{props.item.author}</span>
+        <span>{props.item.num_comments}</span>
+        <span>{props.item.points}</span>
+    </li>
+    );
+
+    export default App;
+
+Voy a chatgptear la explicación
+
+<h3> Explicaciones malas ojalá las borren </h3>
+
+1. Prop.item y prop.list es porque así se llaman las variables yes más que nada para que el programador sepa de donde viene el prop... ¿para qué? ¿no desafía esto el propósito original? Allá react con sus cosas,,,
+
+2. Bueno, emmm, eso era. Lo otro era que Item es para modulizar más!!! es otro tipo de dato de react, un elemento de una lista, entonces así el módulo List se encarga de navegar la lista y el módulo Item se encarga de renderizar el ítem.
+
+**Fin del estudio 6** Página 57
