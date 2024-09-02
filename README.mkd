@@ -574,4 +574,150 @@ Voy a chatgptear la explicación
 
 2. Bueno, emmm, eso era. Lo otro era que Item es para modulizar más!!! es otro tipo de dato de react, un elemento de una lista, entonces así el módulo List se encarga de navegar la lista y el módulo Item se encarga de renderizar el ítem.
 
+<h4> Recordar que lo que se pasa de padre a hijo la idea es que sea INMUTABLE</h4>
+
 **Fin del estudio 6** Página 57
+
+<hr>
+
+**Inicio del estudio 7** Página 57
+
+<h1> React State </h1>
+
+Para mutar las variables que se pasan de padre a hijo, usamos lo que vendría siendo state. Cuando el state muta, todos los componentes hijos mutan!
+
+Un ejemplo de implementación en la barra search sería la siguiente:
+
+    const Search = () => {
+    const [searchTerm, setSearchTerm] = React.useState(''); //Setea cómo serán los cambios
+
+    const handleChange = (event) => {
+        setSearchTerm(event.target.value); //Pasa los valores a la función
+    };
+
+    return (
+        <div>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" onChange={handleChange} /> // se define que acá se tiene que escuchar la cuestión
+
+        <p>
+            Searching for <strong>{searchTerm}</strong>. // se genera la búsqueda
+        </p>
+        </div>
+    );
+    };
+
+
+Lo primero que se hace es inicializar search con useState, donde searchTerm es el valor temporal que tiene lo que escribiremos en la barra y setSearchTerm indica que actualizaremos ese valor. ¿Cómo reconoce los cambios? Con const handleChange. Entonces, al escribir, se setea el searchTerm como los cambios del evento.
+
+Entonces:
+
+const = React.useState(' ') tiene dos parámetros
+
+**Parámetro 1**: La variable a medida que se va actualizando (VAR)
+**Parámetro 2**: La función que va actualizando la variable (UPDATER FUNCTION)
+
+<h1> Callback Handlers </h1>
+
+Sabemos como pasar y actualizar info en componentes desde padre a hijo... ¿cómo sería al revés?  odnatnac yov sever la,,,
+
+Usamos entonces lo que se llama **callback handlers**.
+
+Ejemplo práctico porque si no me vuelvo loco:
+
+Primero, inicializamos el callback handler en App (declaramos que acá se va poner un handler, punto A) y luego añadimos el resultado del handler (punto D)
+
+    const App = () => {
+        //PUNTO A 
+        ...
+        const handleSearch = (event) => {
+            console.log(event.target.value);
+        };
+        ...
+
+        //AHORA EL PUNTO D
+        // D
+        console.log(event.target.value);
+
+        return {}
+
+
+Luego de esto, tenemos que hacer que al hacer search, se pase el handler hacia abajo!!! hacia la cadena, esto es el punto B. De nuevo va en apps.
+
+    <Search onSearch={handleSearch} />
+
+Así, finalmente, hacemos que onSearch (la función del handler) reciba los props!! Esto va en el componente Search:
+
+    const Search = (props) => {
+    const [searchTerm, setSearchTerm] = React.useState('');
+
+    const handleChange = (event) => {
+        setSearchTerm(event.target.value);
+
+        props.onSearch(event); //AL hacer el cambio, se pasa para arriba y para abajo, por eso va en el handleChange
+    };
+
+    return (
+        <div>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" onChange={handleChange} />
+
+        <p>
+            Searching for <strong>{searchTerm}</strong>.
+        </p>
+        </div>
+    );
+    };
+
+<h1> Lifting State en React </h1>
+
+Ahora si vamos a hacer algo útil!! Filtrar las historias. Podemos pasar información en todas las direcciones, así que ahora si podemos!!
+
+Primero hacemos que todo quede en App, para que reciba las actualizaciones y se trabaje solo desde ese punto y no desde 37 mil componentes difernetes
+
+    const App = () => {
+    const stories = [
+        {
+        title: 'React',
+        url: 'https://reactjs.org/',
+        author: 'Jordan Walke',
+        num_comments: 3,
+        points: 4,
+        objectID: 0,
+        },
+        {
+        title: 'Redux',
+        url: 'https://redux.js.org/',
+        author: 'Dan Abramov, Andrew Clark',
+        num_comments: 2,
+        points: 5,
+        objectID: 1,
+        },
+    ];
+
+    const [searchTerm, setSearchTerm] = React.useState('');
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);//La actualización se hace desde acá
+    };
+
+    const searchedStories = stories.filter((story) =>
+        story.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+        <div>
+        <h1>My Hacker Stories</h1>
+
+        <Search onSearch={handleSearch} /> //Recibe el callback hasta acá!!
+
+        <hr />
+
+        <List list={searchedStories} />
+        </div>
+    );
+    };
+
+Y añadimos el filtro de searchedStories con una función de JSX
+
+**Fin del estudio 7**: Página 70
